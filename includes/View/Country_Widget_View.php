@@ -250,11 +250,11 @@ class Country_Widget_View extends Widget_Base {
         if ($settings['show_label'] === 'yes') {
             echo "<label for='{$settings['field_name']}'>{$settings['label_text']}</label>";
         }
+        echo "<select name='mf[{$settings['field_name']}]' id='{$settings['field_name']}'>";
 
-        echo "<select name='{$settings['field_name']}' id='{$settings['field_name']}'>";
         foreach ($countries as $code => $name) {
             $selected = ($settings['country'] == $code) ? 'selected' : '';
-            echo "<option value=\"{$code}\" {$selected}>{$name}</option>";
+            echo "<option value=\"{$name}\" {$selected}>{$name}</option>";
         }
         echo '</select>';
 
