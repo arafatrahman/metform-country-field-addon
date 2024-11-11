@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: MetForm Pro Addon for Elementor
- * Description: Transform your forms with the MetForm Country Selector Widget for Elementor! This intuitive addon seamlessly integrates into your MetForm-powered Elementor pages, allowing you to add a customizable country dropdown to your forms
+ * Description: Transform your forms with the MetForm Pro Addon for Elementor! This intuitive addon seamlessly integrates into your MetForm-powered Elementor pages, allowing you to add a customizable fields to your forms
  * Version: 1.0
  * Author: Arafat Rahman
  * sAuthor URI: https://rrrplus.co.uk/
