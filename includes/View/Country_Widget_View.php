@@ -1,5 +1,5 @@
 <?php
-namespace MFCA\View;
+namespace MFpro\View;
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
@@ -7,7 +7,7 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Box_Shadow;
-use MFCA\Model\Country_Model;
+use MFPRO\Model\Country_Model;
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
@@ -18,7 +18,7 @@ class Country_Widget_View extends Widget_Base {
     }
 
     public function get_title() {
-        return __('Country Selector', 'metform-country-addon');
+        return __('Country Selector', 'metformpro');
     }
 
     public function get_icon() {
@@ -33,7 +33,7 @@ class Country_Widget_View extends Widget_Base {
         $this->start_controls_section(
             'content_section',
             [
-                'label' => __('Content', 'metform-country-addon'),
+                'label' => __('Content', 'metformpro'),
                 'tab' => Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -42,9 +42,9 @@ class Country_Widget_View extends Widget_Base {
         $this->add_control(
             'label_text',
             [
-                'label' => __('Label Text', 'metform-country-addon'),
+                'label' => __('Label Text', 'metformpro'),
                 'type' => Controls_Manager::TEXT,
-                'default' => __('Select Country', 'metform-country-addon'),
+                'default' => __('Select Country', 'metformpro'),
             ]
         );
 
@@ -52,10 +52,10 @@ class Country_Widget_View extends Widget_Base {
         $this->add_control(
             'show_label',
             [
-                'label' => __('Show Label', 'metform-country-addon'),
+                'label' => __('Show Label', 'metformpro'),
                 'type' => Controls_Manager::SWITCHER,
-                'label_on' => __('Show', 'metform-country-addon'),
-                'label_off' => __('Hide', 'metform-country-addon'),
+                'label_on' => __('Show', 'metformpro'),
+                'label_off' => __('Hide', 'metformpro'),
                 'return_value' => 'yes',
                 'default' => 'yes',
             ]
@@ -65,11 +65,11 @@ class Country_Widget_View extends Widget_Base {
         $this->add_control(
             'label_position',
             [
-                'label' => __('Label Position', 'metform-country-addon'),
+                'label' => __('Label Position', 'metformpro'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'top' => __('Top', 'metform-country-addon'),
-                    'left' => __('Left', 'metform-country-addon'),
+                    'top' => __('Top', 'metformpro'),
+                    'left' => __('Left', 'metformpro'),
                 ],
                 'default' => 'top',
                 'condition' => [
@@ -82,7 +82,7 @@ class Country_Widget_View extends Widget_Base {
         $this->add_control(
             'field_name',
             [
-                'label' => __('Field Name', 'metform-country-addon'),
+                'label' => __('Field Name', 'metformpro'),
                 'type' => Controls_Manager::TEXT,
                 'default' => 'mf-country',
             ]
@@ -95,7 +95,7 @@ class Country_Widget_View extends Widget_Base {
         $this->add_control(
             'country',
             [
-                'label' => __('Default Country', 'metform-country-addon'),
+                'label' => __('Default Country', 'metformpro'),
                 'type' => Controls_Manager::SELECT,
                 'options' => $countries,
                 'default' => 'US',
@@ -108,7 +108,7 @@ class Country_Widget_View extends Widget_Base {
         $this->start_controls_section(
             'label_style_section',
             [
-                'label' => __('Label', 'metform-country-addon'),
+                'label' => __('Label', 'metformpro'),
                 'tab' => Controls_Manager::TAB_STYLE,
                 'condition' => [
                     'show_label' => 'yes',
@@ -121,7 +121,7 @@ class Country_Widget_View extends Widget_Base {
             Group_Control_Typography::get_type(),
             [
                 'name' => 'label_typography',
-                'label' => __('Typography', 'metform-country-addon'),
+                'label' => __('Typography', 'metformpro'),
                 'selector' => '{{WRAPPER}} .country-selector-wrapper label',
             ]
         );
@@ -130,7 +130,7 @@ class Country_Widget_View extends Widget_Base {
         $this->add_control(
             'label_color',
             [
-                'label' => __('Text Color', 'metform-country-addon'),
+                'label' => __('Text Color', 'metformpro'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '#333', // Default label color
                 'selectors' => [
@@ -143,7 +143,7 @@ class Country_Widget_View extends Widget_Base {
         $this->add_responsive_control(
             'label_margin',
             [
-                'label' => __('Margin', 'metform-country-addon'),
+                'label' => __('Margin', 'metformpro'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%', 'em'],
                 'selectors' => [
@@ -158,7 +158,7 @@ class Country_Widget_View extends Widget_Base {
         $this->start_controls_section(
             'dropdown_style_section',
             [
-                'label' => __('Dropdown', 'metform-country-addon'),
+                'label' => __('Dropdown', 'metformpro'),
                 'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
@@ -168,7 +168,7 @@ class Country_Widget_View extends Widget_Base {
             Group_Control_Typography::get_type(),
             [
                 'name' => 'dropdown_typography',
-                'label' => __('Typography', 'metform-country-addon'),
+                'label' => __('Typography', 'metformpro'),
                 'selector' => '{{WRAPPER}} .country-selector-wrapper select',
             ]
         );
@@ -177,7 +177,7 @@ class Country_Widget_View extends Widget_Base {
         $this->add_control(
             'dropdown_text_color',
             [
-                'label' => __('Text Color', 'metform-country-addon'),
+                'label' => __('Text Color', 'metformpro'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '#333', // Default text color
                 'selectors' => [
@@ -190,7 +190,7 @@ class Country_Widget_View extends Widget_Base {
         $this->add_control(
             'dropdown_background_color',
             [
-                'label' => __('Background Color', 'metform-country-addon'),
+                'label' => __('Background Color', 'metformpro'),
                 'type' => Controls_Manager::COLOR,
                 'default' => '#ffffff', // Default background color
                 'selectors' => [
@@ -204,7 +204,7 @@ class Country_Widget_View extends Widget_Base {
             Group_Control_Border::get_type(),
             [
                 'name' => 'dropdown_border',
-                'label' => __('Border', 'metform-country-addon'),
+                'label' => __('Border', 'metformpro'),
                 'selector' => '{{WRAPPER}} .country-selector-wrapper select',
             ]
         );
@@ -213,7 +213,7 @@ class Country_Widget_View extends Widget_Base {
         $this->add_responsive_control(
             'dropdown_border_radius',
             [
-                'label' => __('Border Radius', 'metform-country-addon'),
+                'label' => __('Border Radius', 'metformpro'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%', 'em'],
                 'selectors' => [
@@ -226,7 +226,7 @@ class Country_Widget_View extends Widget_Base {
         $this->add_responsive_control(
             'dropdown_padding',
             [
-                'label' => __('Padding', 'metform-country-addon'),
+                'label' => __('Padding', 'metformpro'),
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%', 'em'],
                 'selectors' => [
