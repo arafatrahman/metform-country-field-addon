@@ -16,3 +16,21 @@
 .country-selector-wrapper.label-left label {
     margin-right: 10px;
 }
+
+/* Style for Color Picker Widget */
+.color-picker-widget {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#mfpro_pro_fields_meta_box table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#mfpro_pro_fields_meta_box th, 
+#mfpro_pro_fields_meta_box td {
+    padding: 8px;
+    text-align: left;
+}
