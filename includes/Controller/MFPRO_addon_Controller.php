@@ -12,7 +12,7 @@ class MFPRO_Addon_Controller {
         add_action('elementor/widgets/widgets_registered', [$this, 'register_widgets']);
         
         // Enqueue styles
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_styles']);
+        add_action('wp_enqueue_scripts', [$this, 'mfpro_enqueue_styles']);
         
         // Add custom fields to MetForm entries
         add_filter('metform_filter_before_store_form_data', [$this, 'add_custom_fields_to_form_data'], 10, 2);
@@ -29,8 +29,13 @@ class MFPRO_Addon_Controller {
         Plugin::instance()->widgets_manager->register_widget_type(new ColorPicker_Widget_View());
     }
 
-    public function enqueue_styles() {
+    public function mfpro_enqueue_styles() {
         wp_enqueue_style('metform-addon-style', plugin_dir_url(__DIR__) . '../assets/style.css');
+        
+        wp_enqueue_script('jquery');
+
+        // Enqueue JavaScript file
+         wp_enqueue_script('metform-addon-script', plugin_dir_url(__DIR__) . '../assets/script.js', array('jquery'), null, true);
     }
 
     public function add_custom_fields_to_form_data($data, $entry_id) {

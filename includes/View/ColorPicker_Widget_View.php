@@ -53,6 +53,9 @@ class ColorPicker_Widget_View extends Widget_Base {
         echo '<label for="mf-color-picker">' . __('Selected Color:', 'metformpro') . '</label>';
         echo '<input type="color" id="mf-color" name="mf-color" value="' . esc_attr($settings['color_picker']) . '" />';
         echo '</div>';
+        
     }
+
+
     
 }
