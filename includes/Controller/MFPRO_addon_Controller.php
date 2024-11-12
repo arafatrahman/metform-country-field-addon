@@ -53,18 +53,32 @@ class MFPRO_Addon_Controller {
     }
 
     public function append_custom_fields_to_email($email) {
-
-        
+        // Retrieve and sanitize data from $_POST
         $mf_country = isset($_POST['mf-country']) ? sanitize_text_field($_POST['mf-country']) : null;
         $mf_color = isset($_POST['mf-color']) ? sanitize_hex_color($_POST['mf-color']) : null;
-        
+    
+        // Build country and color rows for HTML email format
         if ($mf_country) {
-            $email['message'] .= "\nSelected Country: " . $mf_country;
+            $country_row = "<tr bgcolor='#EAF2FA'><td colspan='2'><strong>Country</strong></td></tr>
+                            <tr bgcolor='#FFFFFF'><td width='20'>&nbsp;</td><td>" . esc_html($mf_country) . "</td></tr>";
         }
+    
         if ($mf_color) {
-            $email['message'] .= "\nSelected Color: " . $mf_color;
+            $color_row = "<tr bgcolor='#EAF2FA'><td colspan='2'><strong>Selected Color</strong></td></tr>
+                          <tr bgcolor='#FFFFFF'><td width='20'>&nbsp;</td><td><span style='background-color: " . esc_attr($mf_color) . "; padding: 5px;'>" . esc_html($mf_color) . "</span></td></tr>";
         }
-        
+    
+        // Check if both country and color rows exist and add them to the email table
+        if (isset($country_row) || isset($color_row)) {
+            $pattern = '/<\/tbody>\s*<\/table>/';
+            $replacement = (isset($country_row) ? $country_row : '') . (isset($color_row) ? $color_row : '') . '</tbody></table>';
+            
+            // Insert the rows into the table of the email message
+            $email['message'] = preg_replace($pattern, $replacement, $email['message']);
+        }
+    
+       
+    
         return $email;
     }
 
@@ -108,12 +122,20 @@ class MFPRO_Addon_Controller {
 
         
 
-        // Display the fields in the meta box
-        echo '<table style="width:100%;">';
-        if($mf_country){
-        echo '<tr><th style="width:150px;">' . __('Selected Country:', 'metformpro') . '</th><td>' . esc_html($mf_country ?: __('N/A', 'metformpro')) . '</td></tr>';}
-        if($mf_color){echo '<tr><th style="width:150px;">' . __('Selected Color:', 'metformpro') . '</th><td><input type="color" value="' . esc_attr($mf_color ?: '#ffffff') . '" disabled /></td></tr>';}
-        echo '</table>';
+      // Display the fields in the meta box
+echo '<table class="mf-entry-data" style="width:100%; word-break: break-all;" cellpadding="5" cellspacing="0">';
+
+if ($mf_country) {
+    echo '<tr class="mf-data-label"><td colspan="2"><strong>' . __('Selected Country:', 'metformpro') . '</strong></td></tr>';
+    echo '<tr class="mf-data-value"><td class="mf-value-space">&nbsp;</td><td>' . esc_html($mf_country ?: __('N/A', 'metformpro')) . '</td></tr>';
+}
+
+if ($mf_color) {
+    echo '<tr class="mf-data-label"><td colspan="2"><strong>' . __('Selected Color:', 'metformpro') . '</strong></td></tr>';
+    echo '<tr class="mf-data-value"><td class="mf-value-space">&nbsp;</td><td><input type="color" value="' . esc_attr($mf_color ?: '#ffffff') . '" disabled style="border:none; cursor:default; background:none;" /></td></tr>';
+}
+
+echo '</table>';
     }
 }
 new MFPRO_Addon_Controller();
