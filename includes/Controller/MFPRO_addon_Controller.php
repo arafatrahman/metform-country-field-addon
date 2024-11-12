@@ -57,28 +57,30 @@ class MFPRO_Addon_Controller {
         $mf_country = isset($_POST['mf-country']) ? sanitize_text_field($_POST['mf-country']) : null;
         $mf_color = isset($_POST['mf-color']) ? sanitize_hex_color($_POST['mf-color']) : null;
     
-        // Build country and color rows for HTML email format
-        if ($mf_country) {
+        // Initialize variables to hold the table rows for the country and color
+        $country_row = $color_row = '';
+
+        // Build country row for HTML email format if not already in the message
+        if ($mf_country && !strpos($email['message'], 'Country')) {
             $country_row = "<tr bgcolor='#EAF2FA'><td colspan='2'><strong>Country</strong></td></tr>
                             <tr bgcolor='#FFFFFF'><td width='20'>&nbsp;</td><td>" . esc_html($mf_country) . "</td></tr>";
         }
-    
-        if ($mf_color) {
+
+        // Build color row for HTML email format if not already in the message
+        if ($mf_color && !strpos($email['message'], 'Selected Color')) {
             $color_row = "<tr bgcolor='#EAF2FA'><td colspan='2'><strong>Selected Color</strong></td></tr>
-                          <tr bgcolor='#FFFFFF'><td width='20'>&nbsp;</td><td><span style='background-color: " . esc_attr($mf_color) . "; padding: 5px;'>" . esc_html($mf_color) . "</span></td></tr>";
+                        <tr bgcolor='#FFFFFF'><td width='20'>&nbsp;</td><td><span style='background-color: " . esc_attr($mf_color) . "; padding: 5px;'>" . esc_html($mf_color) . "</span></td></tr>";
         }
-    
-        // Check if both country and color rows exist and add them to the email table
-        if (isset($country_row) || isset($color_row)) {
+
+        // If there are rows to add, insert them into the table
+        if ($country_row || $color_row) {
             $pattern = '/<\/tbody>\s*<\/table>/';
-            $replacement = (isset($country_row) ? $country_row : '') . (isset($color_row) ? $color_row : '') . '</tbody></table>';
-            
-            // Insert the rows into the table of the email message
+            $replacement = $country_row . $color_row . '</tbody></table>';
             $email['message'] = preg_replace($pattern, $replacement, $email['message']);
         }
-    
-       
-    
+
+
+
         return $email;
     }
 
