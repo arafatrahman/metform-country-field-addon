@@ -34,3 +34,25 @@
     padding: 8px;
     text-align: left;
 }
+
+
+
+
+.color-selector-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.color-selector-wrapper.label-top label {
+    margin-bottom: 10px;
+}
+
+.color-selector-wrapper.label-left {
+    flex-direction: row;
+    align-items: center;
+}
+
+.color-selector-wrapper.label-left label {
+    margin-right: 10px;
+}
