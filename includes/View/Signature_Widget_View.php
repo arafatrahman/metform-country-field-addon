@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) exit;
 
 class Signature_Widget_View extends Widget_Base {
     public function get_name() {
-        return 'signature_picker_widget';
+        return 'signature_widget';
     }
 
     public function get_title() {
@@ -144,18 +144,30 @@ class Signature_Widget_View extends Widget_Base {
 
     protected function render() {
         $settings = $this->get_settings_for_display();
-
+    
         // Apply the label position class
         $label_class = $settings['label_position'] === 'left' ? 'label-left' : 'label-top';
-
+    
         echo "<div class='signature-selector-wrapper {$label_class}'>";
         if ($settings['show_label'] === 'yes') {
-            echo "<label for='mf-color' class='signature-label'>{$settings['label_text']}</label>";
+            echo "<label for='mf-signature-canvas' class='signature-label'>{$settings['label_text']}</label>";
         }
-
-      
-              
-        echo '<input type="text" id="mf-signaure" name="mf-signaure" />';
+    
+            // Canvas element for drawing the signature
+        echo "<canvas id='mf-signature-canvas' style='border: 1px solid #000; width: 100%; max-width: 100%; height: 150px;'></canvas>";
+        
+        // Clear button
+        echo "<button type='button' id='mf-clear-signature'>Clear</button>";
+        
+        // Hidden input to store signature data URL
+        echo "<input type='hidden' name='mf-signature-data' id='mf-signature-data'/>";
         echo '</div>';
+    
     }
+
+    
+
+    protected function content_template() {}
+    
+    
 }

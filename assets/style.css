@@ -76,3 +76,10 @@
 .signature-selector-wrapper.label-left label {
     margin-right: 10px;
 }
+
+#mf-signature-canvas {
+    width: 100%;    /* Ensure no scaling issues */
+    height: auto;   /* Ensure no scaling issues */
+    max-width: 100%; /* Adjust as needed for responsive design */
+    border: 1px solid #000; /* Optional for visual feedback */
+}

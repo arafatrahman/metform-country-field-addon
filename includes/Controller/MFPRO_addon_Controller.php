@@ -37,21 +37,28 @@ class MFPRO_Addon_Controller {
         wp_enqueue_script('jquery');
 
         // Enqueue JavaScript file
-         wp_enqueue_script('metform-addon-script', plugin_dir_url(__DIR__) . '../assets/script.js', array('jquery'), null, true);
-         wp_enqueue_script('metform-signaturepad-script', plugin_dir_url(__DIR__) . '../assets/signaturepad.min.js', array('jquery'), null, true);
-         wp_enqueue_script('metform-signature-script', plugin_dir_url(__DIR__) . '../assets/signature.js', array('jquery'), null, true);
+       //  wp_enqueue_script('metform-addon-script', plugin_dir_url(__DIR__) . '../assets/script.js', array('jquery'), null, true);
+         wp_enqueue_script('metform-signaturepad-script', plugin_dir_url(__DIR__) . '../assets/signaturepad.min.js', array('jquery'), '4.1.7', true);
+         wp_enqueue_script('metform-signature-script', plugin_dir_url(__DIR__) . '../assets/signature.js', array('jquery'), '1.0', true);
 
         }
 
     public function add_custom_fields_to_form_data($data, $entry_id) {
+
+        update_option("thisssstest",$_POST);
         $mf_country = isset($_POST['mf-country']) ? sanitize_text_field($_POST['mf-country']) : null;
         $mf_color = isset($_POST['mf-color']) ? sanitize_hex_color($_POST['mf-color']) : null;
-        
+        $signature_data = isset($_POST['mf-signature-data']) ? sanitize_hex_color($_POST['mf-signature-data']) : null;
+
         if ($mf_country) {
             $data['mf-country'] = $mf_country;
         }
         if ($mf_color) {
             $data['mf-color'] = $mf_color;
+        }
+
+        if ($signature_data) {
+            $data['mf-signature-data'] = $signature_data;
         }
         
         return $data;
@@ -126,8 +133,8 @@ class MFPRO_Addon_Controller {
 
         $mf_country = isset($form_data['mf-country']) ? sanitize_text_field($form_data['mf-country']) : null;
         $mf_color = isset($form_data['mf-color']) ? sanitize_text_field($form_data['mf-color']) : null;
+        $mf_signature = isset($form_data['mf-signature-data']) ? sanitize_text_field($form_data['mf-signature-data']) : null;
 
-        
 
       // Display the fields in the meta box
 echo '<table class="mf-entry-data" style="width:100%; word-break: break-all;" cellpadding="5" cellspacing="0">';
@@ -140,6 +147,11 @@ if ($mf_country) {
 if ($mf_color) {
     echo '<tr class="mf-data-label"><td colspan="2"><strong>' . __('Selected Color:', 'metformpro') . '</strong></td></tr>';
     echo '<tr class="mf-data-value"><td class="mf-value-space">&nbsp;</td><td><input type="color" value="' . esc_attr($mf_color ?: '#ffffff') . '" disabled style="border:none; cursor:default; background:none;" /></td></tr>';
+}
+
+if ($mf_signature) {
+    echo '<tr class="mf-data-label"><td colspan="2"><strong>' . __('Signature:', 'metformpro') . '</strong></td></tr>';
+    echo '<tr class="mf-data-value"><td class="mf-value-space">&nbsp;</td><td><img src="' . esc_attr($mf_signature) . '" alt="Signature" style="border:1px solid #000; max-width:500px;" /></td></tr>';
 }
 
 echo '</table>';
