@@ -56,3 +56,23 @@
 .color-selector-wrapper.label-left label {
     margin-right: 10px;
 }
+
+
+.signature-selector-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.signature-selector-wrapper.label-top label {
+    margin-bottom: 10px;
+}
+
+.signature-selector-wrapper.label-left {
+    flex-direction: row;
+    align-items: center;
+}
+
+.signature-selector-wrapper.label-left label {
+    margin-right: 10px;
+}

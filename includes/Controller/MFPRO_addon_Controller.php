@@ -3,6 +3,7 @@ namespace MFPRO\Controller;
 
 use MFPRO\View\Country_Widget_View;
 use MFPRO\View\ColorPicker_Widget_View;
+use MFPRO\View\Signature_Widget_View;
 use Elementor\Plugin;
 
 class MFPRO_Addon_Controller {
@@ -27,6 +28,7 @@ class MFPRO_Addon_Controller {
     public function register_widgets() {
         Plugin::instance()->widgets_manager->register_widget_type(new Country_Widget_View());
         Plugin::instance()->widgets_manager->register_widget_type(new ColorPicker_Widget_View());
+        Plugin::instance()->widgets_manager->register_widget_type(new Signature_Widget_View());
     }
 
     public function mfpro_enqueue_styles() {
@@ -36,7 +38,10 @@ class MFPRO_Addon_Controller {
 
         // Enqueue JavaScript file
          wp_enqueue_script('metform-addon-script', plugin_dir_url(__DIR__) . '../assets/script.js', array('jquery'), null, true);
-    }
+         wp_enqueue_script('metform-signaturepad-script', plugin_dir_url(__DIR__) . '../assets/signaturepad.min.js', array('jquery'), null, true);
+         wp_enqueue_script('metform-signature-script', plugin_dir_url(__DIR__) . '../assets/signature.js', array('jquery'), null, true);
+
+        }
 
     public function add_custom_fields_to_form_data($data, $entry_id) {
         $mf_country = isset($_POST['mf-country']) ? sanitize_text_field($_POST['mf-country']) : null;
