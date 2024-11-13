@@ -155,7 +155,8 @@ class Signature_Widget_View extends Widget_Base {
     
             // Canvas element for drawing the signature
         echo "<canvas id='mf-signature-canvas' style='border: 1px solid #000; width: 100%; max-width: 100%; height: 150px;'></canvas>";
-        
+        echo "<button type='button' id='mf-save-signature'>Save</button>";
+
         // Clear button
         echo "<button type='button' id='mf-clear-signature'>Clear</button>";
         

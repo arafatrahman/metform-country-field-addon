@@ -45,10 +45,10 @@ class MFPRO_Addon_Controller {
 
     public function add_custom_fields_to_form_data($data, $entry_id) {
 
-        update_option("thisssstest",$_POST);
+        update_option("mythisssstest",$_POST['mf-signature-data']);
         $mf_country = isset($_POST['mf-country']) ? sanitize_text_field($_POST['mf-country']) : null;
         $mf_color = isset($_POST['mf-color']) ? sanitize_hex_color($_POST['mf-color']) : null;
-        $signature_data = isset($_POST['mf-signature-data']) ? sanitize_hex_color($_POST['mf-signature-data']) : null;
+        $signature_data = isset($_POST['mf-signature-data'][0]) ? sanitize_hex_color($_POST['mf-signature-data'][0]) : null;
 
         if ($mf_country) {
             $data['mf-country'] = $mf_country;
@@ -134,7 +134,7 @@ class MFPRO_Addon_Controller {
         $mf_country = isset($form_data['mf-country']) ? sanitize_text_field($form_data['mf-country']) : null;
         $mf_color = isset($form_data['mf-color']) ? sanitize_text_field($form_data['mf-color']) : null;
         $mf_signature = isset($form_data['mf-signature-data']) ? sanitize_text_field($form_data['mf-signature-data']) : null;
-
+        
 
       // Display the fields in the meta box
 echo '<table class="mf-entry-data" style="width:100%; word-break: break-all;" cellpadding="5" cellspacing="0">';

@@ -9,11 +9,14 @@ jQuery(window).on('elementor/frontend/init', function () {
 
             const signaturePad = new SignaturePad(canvas);
             const clearButton = $scope.find('#mf-clear-signature')[0];
+            const saveButton = $scope.find('#mf-save-signature')[0];
+
             const signatureDataInput = $scope.find('#mf-signature-data')[0];
+
+            console.log(signatureDataInput);
 
             // Update hidden input field with the current signature data
             function updateSignatureData() {
-                alert("update")
                 if (signaturePad.isEmpty()) {
                     signatureDataInput.value = ''; // Clear data if signature is empty
                 } else {
@@ -21,18 +24,15 @@ jQuery(window).on('elementor/frontend/init', function () {
                 }
             }
 
-            // Ensure signature data is updated when the drawing ends
-            signaturePad.onEnd = updateSignatureData;
-
-            // Update signature data immediately after the user signs
-            signaturePad.onEnd = function () {
-                updateSignatureData();
-            };
-
             // Handle the 'clear' button click
             clearButton.addEventListener('click', function () {
                 signaturePad.clear();
                 signatureDataInput.value = ''; // Clear hidden field when cleared
+            });
+
+            // Handle the 'save' button click
+            saveButton.addEventListener('click', function () {
+                updateSignatureData();
             });
 
             // Recalculate canvas size on window resize
