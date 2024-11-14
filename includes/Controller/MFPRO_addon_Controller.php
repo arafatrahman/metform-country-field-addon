@@ -45,10 +45,11 @@ class MFPRO_Addon_Controller {
 
     public function add_custom_fields_to_form_data($data, $entry_id) {
 
-        update_option("mythisssstest",$_POST['mf-signature-data']);
+        
         $mf_country = isset($_POST['mf-country']) ? sanitize_text_field($_POST['mf-country']) : null;
         $mf_color = isset($_POST['mf-color']) ? sanitize_hex_color($_POST['mf-color']) : null;
-        $signature_data = isset($_POST['mf-signature-data'][0]) ? sanitize_hex_color($_POST['mf-signature-data'][0]) : null;
+        $signature_data = isset($_POST['mf-signature-data']) ? $_POST['mf-signature-data'] : null;
+
 
         if ($mf_country) {
             $data['mf-country'] = $mf_country;
@@ -68,9 +69,13 @@ class MFPRO_Addon_Controller {
         // Retrieve and sanitize data from $_POST
         $mf_country = isset($_POST['mf-country']) ? sanitize_text_field($_POST['mf-country']) : null;
         $mf_color = isset($_POST['mf-color']) ? sanitize_hex_color($_POST['mf-color']) : null;
-    
+        $signature_data = isset($_POST['mf-signature-data']) ? $_POST['mf-signature-data'] : null;
+
+      
         // Initialize variables to hold the table rows for the country and color
-        $country_row = $color_row = '';
+        $country_row = '';
+        $color_row = '';
+        $signature_row = '';
 
         // Build country row for HTML email format if not already in the message
         if ($mf_country && !strpos($email['message'], 'Country')) {
@@ -84,10 +89,16 @@ class MFPRO_Addon_Controller {
                         <tr bgcolor='#FFFFFF'><td width='20'>&nbsp;</td><td><span style='background-color: " . esc_attr($mf_color) . "; padding: 5px;'>" . esc_html($mf_color) . "</span></td></tr>";
         }
 
+        if ($signature_data && !strpos($email['message'], 'Signature')) {
+            $signature_row = "<tr bgcolor='#EAF2FA'><td colspan='2'><strong>Signature</strong></td></tr>
+                              <tr bgcolor='#FFFFFF'><td width='20'>&nbsp;</td><td>
+                              <img src='" . $signature_data . "' alt='Signature' style='width:200px; height:auto;'></td></tr>";
+        }
+
         // If there are rows to add, insert them into the table
-        if ($country_row || $color_row) {
+        if ($country_row || $color_row || $signature_row) {
             $pattern = '/<\/tbody>\s*<\/table>/';
-            $replacement = $country_row . $color_row . '</tbody></table>';
+            $replacement = $country_row . $color_row . $signature_row .'</tbody></table>';
             $email['message'] = preg_replace($pattern, $replacement, $email['message']);
         }
 
@@ -151,7 +162,7 @@ if ($mf_color) {
 
 if ($mf_signature) {
     echo '<tr class="mf-data-label"><td colspan="2"><strong>' . __('Signature:', 'metformpro') . '</strong></td></tr>';
-    echo '<tr class="mf-data-value"><td class="mf-value-space">&nbsp;</td><td><img src="' . esc_attr($mf_signature) . '" alt="Signature" style="border:1px solid #000; max-width:500px;" /></td></tr>';
+    echo '<tr class="mf-data-value"><td class="mf-value-space">&nbsp;</td><td><img src="' . esc_attr($mf_signature) . '" alt="Signature" style="max-width:500px;" /></td></tr>';
 }
 
 echo '</table>';
